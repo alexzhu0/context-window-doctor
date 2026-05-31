@@ -1,0 +1,26 @@
+name: context-window-doctor
+one_liner: Find duplicate, conflicting, and stale instructions in long context files.
+target_user: Agent and prompt engineers
+pain_point: Long context windows accumulate repeated and contradictory instructions.
+demo_command: PYTHONPATH=src python3 -m context_window_doctor examples/context.md
+topics:
+  - ai-tools
+  - context-engineering
+  - prompt-engineering
+  - agents
+  - cli
+  - llmops
+release_channel:
+  - github
+  - relevant-developer-communities
+launch_copy:
+  - I built context-window-doctor: Find duplicate, conflicting, and stale instructions in long context files.
+  - The pain: Long context windows accumulate repeated and contradictory instructions.
+  - Try it with: PYTHONPATH=src python3 -m context_window_doctor examples/context.md
+quality_gate:
+  commands:
+    - python3 -m unittest discover -s tests
+metrics_goal:
+  day_1_stars: 5
+  day_3_stars: 15
+  day_7_stars: 50
