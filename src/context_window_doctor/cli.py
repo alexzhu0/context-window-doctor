@@ -18,23 +18,43 @@ def normalize(line: str) -> str:
 
 
 def analyze_context(path: str) -> Dict[str, List[str] | int]:
-    lines = [line.strip() for line in Path(path).read_text(encoding="utf-8").splitlines() if line.strip()]
+    raw_lines = Path(path).read_text(encoding="utf-8").splitlines()
+    lines = [(number, line.strip()) for number, line in enumerate(raw_lines, start=1) if line.strip()]
     seen = {}
     duplicates = []
     conflicts = []
     stale = []
-    for line in lines:
+    findings = []
+    first_seen_line = {}
+    for line_number, line in lines:
         key = normalize(line)
         seen[key] = seen.get(key, 0) + 1
+        first_seen_line.setdefault(key, line_number)
         if seen[key] == 2:
             duplicates.append(line)
+            findings.append(
+                {
+                    "kind": "duplicate",
+                    "line": line_number,
+                    "first_line": first_seen_line[key],
+                    "text": line,
+                }
+            )
         lower = line.lower()
         for left, right in CONFLICT_PAIRS:
             if left in lower and right in lower:
                 conflicts.append(line)
+                findings.append({"kind": "conflict", "line": line_number, "text": line, "pair": [left, right]})
         if any(re.search(pattern, line, flags=re.IGNORECASE) for pattern in STALE_PATTERNS):
             stale.append(line)
-    return {"line_count": len(lines), "duplicates": duplicates, "conflicts": conflicts, "stale": stale}
+            findings.append({"kind": "stale", "line": line_number, "text": line})
+    return {
+        "line_count": len(lines),
+        "duplicates": duplicates,
+        "conflicts": conflicts,
+        "stale": stale,
+        "findings": findings,
+    }
 
 
 def format_text(result: Dict[str, List[str] | int]) -> str:
@@ -43,6 +63,13 @@ def format_text(result: Dict[str, List[str] | int]) -> str:
         values = result[key]
         lines.extend(["", f"{key.title()}:"])
         lines.extend(f"- {item}" for item in values) if values else lines.append("- none")
+    if result["findings"]:
+        lines.extend(["", "Findings:"])
+        for finding in result["findings"]:
+            location = f"line {finding['line']}"
+            if finding["kind"] == "duplicate":
+                location += f" (first seen line {finding['first_line']})"
+            lines.append(f"- {finding['kind']} at {location}: {finding['text']}")
     return "\n".join(lines)
 
 

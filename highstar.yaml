@@ -3,6 +3,10 @@ one_liner: Find duplicate, conflicting, and stale instructions in long context f
 target_user: Agent and prompt engineers
 pain_point: Long context windows accumulate repeated and contradictory instructions.
 demo_command: PYTHONPATH=src python3 -m context_window_doctor examples/context.md
+tier: baseline
+maturity_status: hardened-2026-05-31
+next_release: v0.1.1
+polish_score: 80
 topics:
   - ai-tools
   - context-engineering

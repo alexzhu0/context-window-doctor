@@ -14,6 +14,7 @@ class ContextWindowDoctorTests(unittest.TestCase):
             result = analyze_context(str(path))
         self.assertEqual(result["duplicates"], ["Use tests."])
         self.assertEqual(result["stale"], ["TODO legacy note"])
+        self.assertEqual(result["findings"][0]["line"], 2)
 
     def test_json_output_contains_conflicts(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -21,6 +22,15 @@ class ContextWindowDoctorTests(unittest.TestCase):
             path.write_text("Always never ask.\n", encoding="utf-8")
             payload = json.loads(run(str(path), "json"))
         self.assertEqual(payload["conflicts"], ["Always never ask."])
+
+    def test_text_output_includes_line_numbers(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "context.md"
+            path.write_text("Use tests.\nUse tests.\n", encoding="utf-8")
+
+            output = run(str(path))
+
+        self.assertIn("duplicate at line 2", output)
 
 
 if __name__ == "__main__":
