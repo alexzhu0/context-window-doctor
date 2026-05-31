@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "context-window-doctor"
-version = "0.1.1"
-description = "Find duplicate, conflicting, and stale instructions in long context files."
+version = "0.1.2"
+description = "Find context rot in long coding-agent instruction files."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }

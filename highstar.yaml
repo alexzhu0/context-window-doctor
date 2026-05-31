@@ -1,12 +1,12 @@
 name: context-window-doctor
-one_liner: Find duplicate, conflicting, and stale instructions in long context files.
+one_liner: Find context rot in long coding-agent instruction files.
 target_user: Agent and prompt engineers
-pain_point: Long context windows accumulate repeated and contradictory instructions.
+pain_point: Long coding-agent context windows accumulate repeated, contradictory, and stale instructions.
 demo_command: PYTHONPATH=src python3 -m context_window_doctor examples/context.md
 tier: baseline
-maturity_status: hardened-2026-05-31
-next_release: v0.1.1
-polish_score: 80
+maturity_status: support-aligned-2026-05-31
+next_release: v0.1.2
+polish_score: 83
 topics:
   - ai-tools
   - context-engineering
@@ -18,8 +18,8 @@ release_channel:
   - github
   - relevant-developer-communities
 launch_copy:
-  - I built context-window-doctor: Find duplicate, conflicting, and stale instructions in long context files.
-  - The pain: Long context windows accumulate repeated and contradictory instructions.
+  - I built context-window-doctor to find context rot in long coding-agent instruction files.
+  - The pain: Long context windows accumulate repeated, contradictory, and stale instructions.
   - Try it with: PYTHONPATH=src python3 -m context_window_doctor examples/context.md
 quality_gate:
   commands:

@@ -1,10 +1,10 @@
 # Context Window Doctor
 
-Find duplicate, conflicting, and stale instructions in long context files.
+Find context rot in long coding-agent instruction files.
 
 ## Why
 
-Long agent contexts accumulate repeated, stale, and contradictory instructions that lower reliability.
+Long coding-agent contexts accumulate repeated, stale, and contradictory instructions that lower reliability.
 
 This is a baseline HighStar AI developer tool: dependency-light, local-first, and built around one quick command.
 
@@ -63,6 +63,12 @@ Use the CLI first. Import the Python functions when you want to embed the same b
 ## Why Star This
 
 It gives prompt and agent teams a quick hygiene pass for overloaded context files.
+
+## Used With
+
+- Run before `repo-to-ai-brief` when long context files include stale or contradictory instructions.
+- Pair with `prompt-drift-watch` when duplicated context hides risky instruction changes.
+- Keep this as the context-rot detector inside a larger coding-agent maintenance workflow.
 
 ## Roadmap
 

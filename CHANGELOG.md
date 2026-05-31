@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.2 - 2026-05-31
+
+- Repositioned the project as a coding-agent context rot detector.
+- Added README guidance for use with `repo-to-ai-brief` and `prompt-drift-watch`.
+- Updated metadata for the supporting-tool role in the HighStar suite.
+
 ## v0.1.1 - 2026-05-31
 
 - Added line-numbered findings.
